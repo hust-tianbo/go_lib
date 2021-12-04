@@ -83,7 +83,7 @@ func NewZapLogWithCallerSkip(c Config, callerSkip int) Logger {
 	)
 
 	// 收集标准库log的标准输出
-	zap.RedirectStdLog(logger)
+	// zap.RedirectStdLog(logger)
 
 	return &zapLog{
 		levels: levels,
