@@ -33,6 +33,11 @@ func Register(name string, logger Logger) {
 	logs[name] = logger
 }
 
+// 获取句柄
+func Get(name string) Logger {
+	return logs[name]
+}
+
 func RegisterWriter(name string, writer FactoryInterface) {
 	writers[name] = writer
 }
