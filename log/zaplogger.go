@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"go_lib/log/rollwriter"
+	"github.com/hust-tianbo/go_lib/log/rollwriter"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
