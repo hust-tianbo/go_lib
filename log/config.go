@@ -36,11 +36,31 @@ const (
 	Year = "year"
 )
 
+func (t TimeSplit) Format() string {
+	switch t {
+	case Hour:
+		return "%Y%m%d%H"
+	case Day:
+		return "%Y%m%d"
+	case Month:
+		return "%Y%m"
+	case Year:
+		return "%Y"
+	default: // 默认按天的格式切分日志
+		return "%Y%m%d"
+	}
+}
+
+const (
+	OutputConsole = "console"
+	OutputFile    = "file"
+)
+
 type WriteConfig struct {
 	// LogPath 日志路径名
 	LogPath string `yaml:"log_path"`
 	// Filename 日志路径文件名
-	FileName string `yaml:"filename"`
+	Filename string `yaml:"filename"`
 	// WriteMode 日志写入模式 1.同步，2.异步
 	WriteMode int `yaml:"write_mode"`
 	// RollType 文件滚动类型，按大小分割文件，按时间分割文件
@@ -82,3 +102,20 @@ type FormatConfig struct {
 	// StackTraceKey 日志输出堆栈trace key
 	StacktraceKey string `yaml:"stacktrace_Key"`
 }
+
+const (
+	// WriteSync 同步写
+	WriteSync = 1
+	// WriteAsync 异步写
+	WriteAsync = 2
+	// WriteFast 极速写(异步丢弃)
+	WriteFast = 3
+)
+
+// 文件滚动类型配置字段
+const (
+	// RollBySize 按大小分割文件
+	RollBySize = "size"
+	// RollByTime 按时间分割文件
+	RollByTime = "time"
+)

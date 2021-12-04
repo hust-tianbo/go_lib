@@ -4,6 +4,10 @@ var traceEnabled = false
 
 var DefaultLogger Logger
 
+func SetLogger(logger Logger) {
+	DefaultLogger = logger
+}
+
 // Trace logs to TRACE log. Arguments are handled in the manner of fmt.Print.
 /*func Trace(args ...interface{}) {
 	if traceEnabled {
