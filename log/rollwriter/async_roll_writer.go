@@ -3,7 +3,6 @@ package rollwriter
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"io"
 	"time"
 )
@@ -75,7 +74,6 @@ func NewAsyncRollWriter(logger io.Writer, opt ...AsyncOption) *AsyncRollWriter {
 
 // 实现写文件的方法
 func (w *AsyncRollWriter) Write(data []byte) (int, error) {
-	fmt.Printf("[AsyncRollWriter]Write:%+v\n", string(data))
 	log := make([]byte, len(data))
 
 	copy(log, data)
@@ -110,13 +108,11 @@ func (w *AsyncRollWriter) batchWriteLog() {
 		select {
 		case <-ticker.C: // 到了定期刷新的时间，则刷新一下
 			if buffer.Len() > 0 {
-				//fmt.Printf("[write log]buffer fresh\n")
 				_, _ = w.logger.Write(buffer.Bytes())
 				buffer.Reset()
 			}
 		case data := <-w.logChan: // 将日志从ch转移到buffer中
 			buffer.Write(data)
-			//fmt.Printf("[write log]buffer len\n")
 			if buffer.Len() >= w.opts.WriteLogSize { // 如果超过了最大大小，则直接刷新
 				_, _ = w.logger.Write(buffer.Bytes())
 				buffer.Reset()

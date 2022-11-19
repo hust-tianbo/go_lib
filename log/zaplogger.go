@@ -274,7 +274,6 @@ func (l *zapLog) Debug(args ...interface{}) {
 
 // Debugf logs to DEBUG log, Arguments are handled in the manner of fmt.Printf
 func (l *zapLog) Debugf(format string, args ...interface{}) {
-	fmt.Printf("[zaplog]enable:%+v\n", l.logger.Core().Enabled(zapcore.DebugLevel))
 	if l.logger.Core().Enabled(zapcore.DebugLevel) {
 		l.logger.Debug(fmt.Sprintf(format, args...))
 	}
